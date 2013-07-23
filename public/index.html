@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+    <head>
+    </head>
+    <body>
+
+        <input id='box' type='text' size='200' />
+
+        <script src='/socket.io/lib/socket.io.js'></script>
+        <script>
+
+            var socket = io.connect('http://192.168.1.51');
+            var b = document.getElementById('box');
+
+            socket.on('relay', function(data) {
+                b.setAttribute('value', data.msg);
+            });
+
+            document.onmousemove = function(event) {
+                event = event || window.event;
+                socket.emit('m', {x: event.clientX, y: event.clientY});
+            }
+
+
+        </script>
+
+    </body>
+</html>
